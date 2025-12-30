@@ -94,13 +94,33 @@ export default function BatchCredentialsProcessor() {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Batch Credentials Processor</h1>
-        <p className="text-muted-foreground mb-8">
-          Manage multiple batches of Coinbase credentials and process them together
-        </p>
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-3 mb-6 sticky top-0 ">
+          <button
+            onClick={addBatch}
+            className="flex items-center gap-2 px-6 py-2 bg-secondary text-secondary-foreground rounded-md font-medium hover:opacity-80 transition-opacity"
+          >
+            <Plus className="w-4 h-4" />
+            Add Batch
+          </button>
+          <button
+            onClick={processBatches}
+            className="flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+            disabled={batches.length === 0}
+          >
+            <CheckCircle className="w-4 h-4" />
+            Process
+          </button>
+          <button
+            onClick={resetAll}
+            className="px-6 py-2 bg-muted text-muted-foreground rounded-md font-medium hover:opacity-80 transition-opacity"
+          >
+            Reset
+          </button>
+        </div>
 
         {/* Symbol/Variable Input */}
-        <div className="bg-card border border-border rounded-lg p-6 mb-6">
+        <div className="bg-card border border-border rounded-lg ">
           <label htmlFor="sy-variable" className="block text-sm font-medium text-foreground mb-3">
             Symbol/Variable (sy)
           </label>
@@ -125,8 +145,6 @@ export default function BatchCredentialsProcessor() {
 
         {/* Current Input Section */}
         <div className="bg-card border border-border rounded-lg p-6 mb-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Input Credentials</h2>
-
           <div className="space-y-4">
             <div>
               <label htmlFor="api-key" className="block text-sm font-medium text-foreground mb-2">
@@ -163,8 +181,8 @@ export default function BatchCredentialsProcessor() {
                 id="emails"
                 value={currentBatch.emails}
                 onChange={(e) => updateCurrentBatch("emails", e.target.value)}
-                placeholder="email1@example.com&#10;email2@example.com"
-                className="w-full p-3 bg-background border border-input rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring h-24"
+                placeholder="email1@example.com"
+                className="w-full bg-background border border-input rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring h-12"
               />
             </div>
           </div>
@@ -200,30 +218,7 @@ export default function BatchCredentialsProcessor() {
 )}
 
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          <button
-            onClick={addBatch}
-            className="flex items-center gap-2 px-6 py-2 bg-secondary text-secondary-foreground rounded-md font-medium hover:opacity-80 transition-opacity"
-          >
-            <Plus className="w-4 h-4" />
-            Add Batch
-          </button>
-          <button
-            onClick={processBatches}
-            className="flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-            disabled={batches.length === 0}
-          >
-            <CheckCircle className="w-4 h-4" />
-            Process
-          </button>
-          <button
-            onClick={resetAll}
-            className="px-6 py-2 bg-muted text-muted-foreground rounded-md font-medium hover:opacity-80 transition-opacity"
-          >
-            Reset
-          </button>
-        </div>
+       
 
         {/* Output Sections */}
         {(apiOutput || emailOutput) && (
